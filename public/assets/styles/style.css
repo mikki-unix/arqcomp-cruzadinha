@@ -1,21 +1,141 @@
+@font-face {
+    font-family: 'SpaceGrostesk-Regular';
+    src: url(../fonts/SpaceGrotesk-Regular.otf);
+}
+
+@font-face {
+    font-family: 'SpaceGrotesk-Bold';
+    src: url(../fonts/SpaceGrotesk-Bold.otf);
+}
+
+:root {
+    --borda-padrao: .2rem solid black;
+
+    --texto: 'SpaceGrostesk-Regular';
+    --texto-bold: 'SpaceGrotesk-Bold';
+
+    --cor: pink;
+    --cor-bg: #D7E6EB;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+button {
+    font-family: var(--texto-bold);
+    border-style: solid;
+
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+h1, h2, h3 {
+    font-family: var(--texto-bold);
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 body {
     margin: 0;
     padding: 0;
     
-    background-color: #D7E6EB;
-    font-family: monospace;
+    width: 100vw;
+    height: 100vh;
+    
+    font-family: var(--texto);
+    background-color: var(--cor-bg);
 }
 
-.flexCenter {
+header {
+    box-sizing: border-box;
+    position: absolute;
+}
 
+header .janela-conteudo {
+    padding: 3rem 4rem;
 }
 
 header h1 {
-    text-align: center;
-    font-size: 30px;
+    margin: 0;
+
+    font-size: 4rem;
 }
 
+.janela {
+    border: var(--borda-padrao);
+    border-radius: .8rem;
+
+    font-size: 1.6rem;
+    background-color: white;
+}
+
+.topo-janela > * {
+    margin: 0;
+    padding: 0;
+}
+
+.topo-janela {
+    box-sizing: border-box;
+    width: 100%;
+    height: fit-content;
+
+    padding: .5rem 1rem;
+
+    border-radius: .8rem .8rem 0 0;
+    border-bottom: var(--borda-padrao);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: var(--cor);
+}
+
+button.fechar-janela {
+    width: 2rem;
+    height: 2rem;
+
+    border: .2rem solid black;
+    border-radius: 50%;
+
+    background-color: transparent;
+
+    vertical-align: middle;
+}
+
+.janela-conteudo {
+    padding: 2rem;
+}
+
+article.janela {
+    width: 60rem;
+}
+
+article .janela-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+article p {
+    font-size: 1.6rem;
+}
+
+button.botao-acao {
+    border-radius: .8rem;
+    font-size: 2rem;
+    padding: .3rem .7rem;
+
+    background-color: var(--cor);
+}
 
 table {
     border: 1px #1F618D solid;
@@ -35,15 +155,6 @@ td {
     height: 30px;
     text-align: center;
     vertical-align: center;
-}
-
-button {
-    border: 0px;
-    background-color: #EC7063;
-    color: #ffffff;
-    padding: 10px;
-    font-size: 20px;
-    border-radius: 20px;
 }
 
 #div_game {
@@ -91,12 +202,6 @@ footer p {
     text-align: center;
 }
 
-#div_information {
-    width: 500px;
-    margin: auto;
-    background-color: #85C1E9;
-    font-size: 20px;
-}
 
 
 #div_verifiedAnswer {
