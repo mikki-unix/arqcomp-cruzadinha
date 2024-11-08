@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/styles/style.css">
+    <title>Cruzadinha!</title>
+    <script src="assets/js/index.js"></script>
+</head>
+<body>
+    <div class="tela-inicial">
+        <header>
+            <div class="topo-janela">
+                <h3>Jogo de Cruzadinha</h3>
+
+                <button class="fechar-janela">
+                    X
+                </button>
+            </div>
+            
+            <h1>Cruzadinha!</h1>
+        </header>
+
+        <article id="div_information">
+            <div class="topo-janela">
+                <h2>Instruções do jogo</h2>
+            </div>
+
+            <div>
+                <h2>Intruções do jogo</h2>
+                <p>Clique em "Começar o Jogo" para iniciar uma partida.</p>
+                <p>Perguntas serão exibidas na parte inferior do quadro</p>
+                <p>Insira a sua resposta na caixa de texto e clique em "Verificar" para conferir a sua
+                    resposta</p>
+                <p>A partida acaba quando as 16 questões forem respondidas, ou quando você encerrar a partida.</p>
+            </div>
+
+            <button class="botao-acao" id="bt_start" onclick="start()">
+                Começar o Jogo
+            </button>
+        </article>
+
+    </div>
+
+    <aside style="display: none" id="div_verifiedAnswer">
+        <h3>Resposta correta!</h3>
+    </aside>
+
+    <main id="div_game" style="display: none;">
+        <div class="topo-janela">
+            <h3>Partida de Cruzadinha</h3>
+
+            <button class="fechar-janela" id="bt_destroyGame" onclick="destroyGrid()">
+                X
+            </button>
+        </div>
+
+        <div id="div_canvasCruzada"></div>
+    </main>
+
+    <div style="display: none" id="div_questions">
+        <span class="topo-janela">
+            Responda aqui
+        </span>
+
+        <p id="span_questionText">Vamos encontrar as esferas do dragao</p>
+        
+        <input type="text" id="input_answer" placeholder="Sua reposta">
+        
+        <button class="botao-acao" id="button_verify" onclick="verify()">
+            Verificar
+        </button>
+    </div>
+
+    <!-- 
+        <footer>
+            <p>Developed by Carlos Santana</p>
+            <p>RA: 01201095</p>
+            <p>1ADS-A</p>
+        </footer> 
+    -->
+</body>
+
+</html>
