@@ -15,7 +15,14 @@
     --texto-bold: 'SpaceGrotesk-Bold';
 
     --cor: pink;
+    --cor-pergunta: #fc4242b0;
     --cor-bg: #D7E6EB;
+
+    --bg-resposta-correta: lightgreen;
+    --borda-resposta-correta: darkgreen;
+
+    --bg-resposta-incorreta: rgb(231, 146, 146);
+    --borda-resposta-incorreta: darkred;
 }
 
 html {
@@ -32,8 +39,20 @@ button:hover {
     cursor: pointer;
 }
 
-h1, h2, h3 {
+h1, h2, h3, strong {
+    margin-top: 0;
     font-family: var(--texto-bold);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    font-family: var(--texto);
+    background-color: var(--cor-bg);
 }
 
 .flex-center {
@@ -42,23 +61,12 @@ h1, h2, h3 {
     align-items: center;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    
-    width: 100vw;
-    height: 100vh;
-    
-    font-family: var(--texto);
-    background-color: var(--cor-bg);
-}
-
 header {
     box-sizing: border-box;
     position: absolute;
 }
 
-header .janela-conteudo {
+header .conteudo-janela {
     padding: 3rem 4rem;
 }
 
@@ -76,7 +84,7 @@ header h1 {
     background-color: white;
 }
 
-.topo-janela > * {
+.topo-janela>* {
     margin: 0;
     padding: 0;
 }
@@ -110,7 +118,7 @@ button.fechar-janela {
     vertical-align: middle;
 }
 
-.janela-conteudo {
+.conteudo-janela {
     padding: 2rem;
 }
 
@@ -118,7 +126,7 @@ article.janela {
     width: 60rem;
 }
 
-article .janela-conteudo {
+article .conteudo-janela {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -127,6 +135,7 @@ article .janela-conteudo {
 
 article p {
     font-size: 1.6rem;
+    text-indent: 2rem;
 }
 
 button.botao-acao {
@@ -137,57 +146,100 @@ button.botao-acao {
     background-color: var(--cor);
 }
 
-table {
-    border: 1px #1F618D solid;
-    font-size: 25px;
-    margin-left: 130px;
-    margin: auto;
+/* Jogo */
+#main_game {
+    position: relative;
+
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
+    /* Cruzadinha */
+    table {
+        font-size: 2.5rem;
+    }
 
-tr {
-    border: 1px #1F618D solid;
-}
+    td {
+        width: 3rem;
+        height: 3rem;
+        text-align: center;
+        vertical-align: center;
+    }
 
-td {
-    border: 1px #1F618D solid;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    vertical-align: center;
-}
+    .celula-livre {
+        position: relative;
+        border: .1rem solid #131313;
+    }
+    
+    .celula-livre .numero-pergunta {
+        position: absolute;
+        top: 1%;
+        left: 3%;
+    
+        font-size: 1.25rem;
+        color: var(--cor-pergunta);
+    }
 
-#div_game {
-    background-color: #ffffff;
-    margin: auto;
 
-    width: 800px;
-    height: 800px;
-}
+    /* Janela de respostas */
+    #div_questions {
+        max-width: 50rem;
+    }
 
-#div_questions {
-    background-color: #85C1E9;
-    width: 700px;
-    margin: auto;
-}
+    #p_texto_pergunta {
+        margin-top: 0;
+    }
 
-#button_verify {
-    width: 100px;
-    margin: auto;
-}
+    #campo-resposta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
 
-#input_answer {
-    width: 100px;
-    margin: auto;
-}
+    #input_resposta {
+        width: 100%;
+        padding: 0 .6rem;
+        align-self: stretch;
+    }
 
-.deadCell {
-    background-color: #1F618D;
-}
+    /* Janela verificação */
+    #aside_verificacao {
+        position: absolute;
+        right: 1%;
+        bottom: 10%;
 
-.availableCell {
-    background-color: #ffffff;
-}
+        max-width: 25rem;
+        font-size: 2rem;
+    }
+
+    .janela.resposta-correta, .janela.resposta-correta button.fechar-janela {
+        color: var(--borda-resposta-correta);
+        background-color: var(--bg-resposta-correta);
+        border-color: var(--borda-resposta-correta);
+    }
+
+    .janela.resposta-incorreta, .janela.resposta-incorreta button.fechar-janela {
+        color: var(--borda-resposta-incorreta);
+        background-color: var(--bg-resposta-incorreta);
+        border-color: var(--borda-resposta-incorreta);
+    }
+
+        /* Conteúdo da janela de verificação */
+        #aside_verificacao .conteudo-janela {
+            position: relative;
+        }
+
+        #aside_verificacao h3, #aside_verificacao p {
+            margin: 0;
+        }
+
+        #aside_verificacao .conteudo-janela button.fechar-janela {
+            position: absolute;
+            top: .5rem;
+            right: .5rem;
+        }
 
 footer {
     padding: 0;
@@ -200,28 +252,4 @@ footer {
 
 footer p {
     text-align: center;
-}
-
-
-
-#div_verifiedAnswer {
-    width: 500px;
-    height: 70px;
-    margin: auto;
-    text-align: center;
-    font-size: 20px;
-    vertical-align: center;
-    margin-bottom: 20px;
-}
-
-.correctAnswer {
-    background-color: #58D68D;
-    color: #196F3D;
-    border: 1px #196F3D solid;
-}
-
-.wrongAnswer {
-    background-color: #EC7063;
-    color: #7B241C;
-    border: 1px #7B241C solid;
 }

@@ -11,7 +11,7 @@
 </head>
 
 <body class="flex-center">
-    <header class="janela">
+    <header class="janela" style="display: none;">
         <div class="topo-janela">
             <h2>Jogo de Cruzadinha</h2>
 
@@ -20,7 +20,7 @@
             </button>
         </div>
 
-        <div class="janela-conteudo flex-center">
+        <div class="conteudo-janela flex-center">
             <h1>Cruzadinha!</h1>
         </div>
     </header>
@@ -34,49 +34,77 @@
             </button>
         </div>
 
-        <div class="janela-conteudo">
+        <div class="conteudo-janela">
             <div>
-                <h2>Intruções do jogo</h2>
-                <p>Clique no botão abaixo para iniciar uma partida. Perguntas serão exibidas na parte inferior do quadro.</p>
-                <p>Insira a sua resposta na caixa de texto e clique em "Verificar" para conferir a sua
-                    resposta</p>
-                <p>A partida acaba quando as 16 questões forem respondidas, ou quando você decidir encerrar a partida.</p>
+                <h2>Instruções do jogo</h2>
+
+                <p>
+                    Clique no botão abaixo para iniciar uma partida. <strong>Perguntas serão exibidas na janela abaixo
+                        do jogo.</strong>
+                </p>
+
+                <p>
+                    <strong>Insira a sua resposta na caixa de texto</strong> e clique em <strong>"Verificar"</strong>
+                    para conferir a sua
+                    resposta.
+                </p>
+
+                <p>
+                    <strong>A partida acaba</strong> quando as <strong>16 questões forem respondidas
+                        corretamente,</strong> ou quando você
+                    decidir encerrar a partida.
+                </p>
             </div>
+
             <button class="botao-acao" id="bt_start" onclick="start()">
                 Começar o Jogo
             </button>
         </div>
     </article>
 
-    <aside style="display: none" id="div_verifiedAnswer">
-        <h3>Resposta correta!</h3>
-    </aside>
 
-    <main id="div_game" style="display: none;">
-        <div class="topo-janela">
-            <h3>Partida de Cruzadinha</h3>
+    <main id="main_game" style="display: none;">
+        <aside id="aside_verificacao" class="janela" style="display: none">
+            
+            <div class="conteudo-janela">
+                <button class="fechar-janela">
+                    X
+                </button>
 
-            <button class="fechar-janela" id="bt_destroyGame" onclick="destroyGrid()">
-                X
-            </button>
-        </div>
+                <span id="span_saida_verificacao">
+                    ?
+                </span>
+            </div>
+        </aside>
 
-        <div id="div_canvasCruzada"></div>
+        <section class="janela">
+            <div class="topo-janela">
+                <h3>Partida de Cruzadinha</h3>
+                <button class="fechar-janela" id="bt_destroyGame" onclick="destroyGrid()">
+                    X
+                </button>
+            </div>
+
+            <div id="div_canvasCruzada" class="conteudo-janela flex-center"></div>
+        </section>
+
+        <section id="div_questions" class="janela">
+            <span class="topo-janela">
+                <strong>Responda aqui</strong>
+            </span>
+
+            <div class="conteudo-janela">
+                <p id="p_texto_pergunta">Vamos encontrar as esferas do dragão</p>
+
+                <div id="campo-resposta">
+                    <input type="text" id="input_resposta" placeholder="Sua reposta">
+                    <button onclick="verificarResposta()" class="botao-acao">
+                        Verificar
+                    </button>
+                </div>
+            </div>
+        </section>
     </main>
-
-    <section style="display: none" id="div_questions">
-        <span class="topo-janela">
-            Responda aqui
-        </span>
-
-        <p id="span_questionText">Vamos encontrar as esferas do dragao</p>
-
-        <input type="text" id="input_answer" placeholder="Sua reposta">
-
-        <button class="botao-acao" id="button_verify" onclick="verify()">
-            Verificar
-        </button>
-    </section>
 
     <!-- 
         <footer>

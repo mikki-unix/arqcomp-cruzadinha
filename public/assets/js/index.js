@@ -43,7 +43,7 @@ const word = {
                 console.log(word.word1.letter[i]);
             }
 
-            cell_2.innerHTML = '<span class="numeroPergunta">1</span>C';
+            cell_2.innerHTML = '<span class="numero-pergunta">1</span>C';
         }
     },
     word2: {
@@ -56,7 +56,7 @@ const word = {
                 findCell.innerHTML = word.word2.letter[i];
                 console.log(word.word2.letter[i]);
             }
-            cell_133.innerHTML = '<span class="numeroPergunta">2</span>U';
+            cell_133.innerHTML = '<span class="numero-pergunta">2</span>U';
 
         }
     },
@@ -70,8 +70,8 @@ const word = {
                 findCell.innerHTML = word.word3.letter[i];
                 console.log(word.word3.letter[i]);
             }
-            cell_59.innerHTML = '<span class="numeroPergunta">3_4</span>R';
-            cell_113.innerHTML = '<span class="numeroPergunta">14</span>i';
+            cell_59.innerHTML = '<span class="numero-pergunta">3_4</span>R';
+            cell_113.innerHTML = '<span class="numero-pergunta">14</span>i';
         }
     },
     word4: {
@@ -84,7 +84,7 @@ const word = {
                 findCell.innerHTML = word.word4.letter[i];
                 console.log(word.word4.letter[i]);
             }
-            cell_59.innerHTML = '<span class="numeroPergunta">3_4</span>R';
+            cell_59.innerHTML = '<span class="numero-pergunta">3_4</span>R';
         }
     },
     word5: {
@@ -97,7 +97,7 @@ const word = {
                 findCell.innerHTML = word.word5.letter[i];
                 console.log(word.word5.letter[i]);
             }
-            cell_272.innerHTML = '<span class="numeroPergunta">5</span>R';
+            cell_272.innerHTML = '<span class="numero-pergunta">5</span>R';
         }
     },
     word6: {
@@ -110,7 +110,7 @@ const word = {
                 findCell.innerHTML = word.word6.letter[i];
                 console.log(word.word6.letter[i]);
             }
-            cell_236.innerHTML = '<span class="numeroPergunta">6</span>E';
+            cell_236.innerHTML = '<span class="numero-pergunta">6</span>E';
         }
     },
     word7: {
@@ -123,7 +123,7 @@ const word = {
                 findCell.innerHTML = word.word7.letter[i];
                 console.log(word.word7.letter[i]);
             }
-            cell_116.innerHTML = '<span class="numeroPergunta">7</span>F';
+            cell_116.innerHTML = '<span class="numero-pergunta">7</span>F';
         }
     },
     word8: {
@@ -136,8 +136,8 @@ const word = {
                 findCell.innerHTML = word.word8.letter[i];
                 console.log(word.word8.letter[i]);
             }
-            cell_27.innerHTML = '<span class="numeroPergunta">8</span>M';
-            cell_117.innerHTML = '<span class="numeroPergunta">13</span>i';
+            cell_27.innerHTML = '<span class="numero-pergunta">8</span>M';
+            cell_117.innerHTML = '<span class="numero-pergunta">13</span>i';
             cell_153.innerHTML = '-';
             cell_207.innerHTML = '-';
 
@@ -153,7 +153,7 @@ const word = {
                 findCell.innerHTML = word.word9.letter[i];
                 console.log(word.word9.letter[i]);
             }
-            cell_203.innerHTML = '<span class="numeroPergunta">9</span>D';
+            cell_203.innerHTML = '<span class="numero-pergunta">9</span>D';
         }
     },
     word10: {
@@ -166,7 +166,7 @@ const word = {
                 findCell.innerHTML = word.word10.letter[i];
                 console.log(word.word10.letter[i]);
             }
-            cell_312.innerHTML = '<span class="numeroPergunta">10</span>C';
+            cell_312.innerHTML = '<span class="numero-pergunta">10</span>C';
         }
     },
     word11: {
@@ -179,7 +179,7 @@ const word = {
                 findCell.innerHTML = word.word11.letter[i];
                 console.log(word.word11.letter[i]);
             }
-            cell_270.innerHTML = '<span class="numeroPergunta">11</span>A';
+            cell_270.innerHTML = '<span class="numero-pergunta">11</span>A';
             cell_276.innerHTML = '-';
         }
     },
@@ -193,7 +193,7 @@ const word = {
                 findCell.innerHTML = word.word12.letter[i];
                 console.log(word.word12.letter[i]);
             }
-            cell_187.innerHTML = '<span class="numeroPergunta">12</span>D';
+            cell_187.innerHTML = '<span class="numero-pergunta">12</span>D';
             cell_259.innerHTML = '-';
         }
     },
@@ -207,7 +207,7 @@ const word = {
                 findCell.innerHTML = word.word13.letter[i];
                 console.log(word.word13.letter[i]);
             }
-            cell_117.innerHTML = '<span class="numeroPergunta">13</span>I';
+            cell_117.innerHTML = '<span class="numero-pergunta">13</span>I';
         }
     },
     word14: {
@@ -220,7 +220,7 @@ const word = {
                 findCell.innerHTML = word.word14.letter[i];
                 console.log(word.word14.letter[i]);
             }
-            cell_113.innerHTML = '<span class="numeroPergunta">14</span>I';
+            cell_113.innerHTML = '<span class="numero-pergunta">14</span>I';
         }
     },
     word15: {
@@ -233,7 +233,7 @@ const word = {
                 findCell.innerHTML = word.word15.letter[i];
                 console.log(word.word15.letter[i]);
             }
-            cell_37.innerHTML = '<span class="numeroPergunta">15</span>D';
+            cell_37.innerHTML = '<span class="numero-pergunta">15</span>D';
             cell_41.innerHTML = '-';
         }
     },
@@ -247,7 +247,7 @@ const word = {
                 findCell.innerHTML = word.word16.letter[i];
                 console.log(word.word16.letter[i]);
             }
-            cell_3.innerHTML = '<span class="numeroPergunta">16</span>Q';
+            cell_3.innerHTML = '<span class="numero-pergunta">16</span>Q';
             cell_75.innerHTML = '-';
         }
     }
@@ -262,10 +262,12 @@ var cont_correctAnswer = 0;
 function start() {
     cont_correctAnswer = 0;
 
-    div_information.innerHTML = '';
+    div_information.style.display = 'none';
     
     bt_destroyGame.style.display = 'block';
     div_questions.style.display = 'block';
+
+    main_game.style.display = 'flex'
 
     renderGrid();
     gameSequence();
@@ -273,8 +275,7 @@ function start() {
 }
 
 function destroyGrid() {
-    bt_destroyGame.style.display = 'none';
-    div_questions.style.display = 'none';
+    main_game.style.display = 'none'
 
     document.querySelector('#div_canvasCruzada').innerHTML = '';
 
@@ -282,54 +283,41 @@ function destroyGrid() {
 }
 
 function gameSequence() {
-    span_questionText.innerHTML = `<b>${cont_correctAnswer + 1}.</b> ${questions_list[cont_correctAnswer]}`;
+    if (cont_correctAnswer != 16) {
+        p_texto_pergunta.innerHTML = `<b>${cont_correctAnswer + 1}.</b> ${questions_list[cont_correctAnswer]}`;
+    } 
 
     if (cont_correctAnswer == 1) {
         word.word1.write();
-    }
-    else if (cont_correctAnswer == 2) {
+    } else if (cont_correctAnswer == 2) {
         word.word2.write();
-    }
-    else if (cont_correctAnswer == 3) {
+    } else if (cont_correctAnswer == 3) {
         word.word3.write();
-    }
-    else if (cont_correctAnswer == 4) {
+    } else if (cont_correctAnswer == 4) {
         word.word4.write();
-    }
-    else if (cont_correctAnswer == 5) {
+    } else if (cont_correctAnswer == 5) {
         word.word5.write();
-    }
-    else if (cont_correctAnswer == 6) {
+    } else if (cont_correctAnswer == 6) {
         word.word6.write();
-    }
-    else if (cont_correctAnswer == 7) {
+    } else if (cont_correctAnswer == 7) {
         word.word7.write();
-    }
-    else if (cont_correctAnswer == 8) {
+    } else if (cont_correctAnswer == 8) {
         word.word8.write();
-    }
-    else if (cont_correctAnswer == 9) {
+    } else if (cont_correctAnswer == 9) {
         word.word9.write();
-    }
-    else if (cont_correctAnswer == 10) {
+    } else if (cont_correctAnswer == 10) {
         word.word10.write();
-    }
-    else if (cont_correctAnswer == 11) {
+    } else if (cont_correctAnswer == 11) {
         word.word11.write();
-    }
-    else if (cont_correctAnswer == 12) {
+    } else if (cont_correctAnswer == 12) {
         word.word12.write();
-    }
-    else if (cont_correctAnswer == 13) {
+    } else if (cont_correctAnswer == 13) {
         word.word13.write();
-    }
-    else if (cont_correctAnswer == 14) {
+    } else if (cont_correctAnswer == 14) {
         word.word14.write();
-    }
-    else if (cont_correctAnswer == 15) {
+    } else if (cont_correctAnswer == 15) {
         word.word15.write();
-    }
-    else if (cont_correctAnswer == 16) {
+    } else if (cont_correctAnswer == 16) {
         word.word16.write();
 
         setTimeout(function () {
@@ -355,7 +343,7 @@ function renderGrid() {
         tableGame += `<tr id="row_${row}">`;
 
         for (var column = 1; column <= widthTable; column++, cell++) {
-            tableGame += `<td class="deadCell" id="cell_${cell}">` + cellContent_tableGame + '</td>';
+            tableGame += `<td class="celula-vazia" id="cell_${cell}">` + cellContent_tableGame + '</td>';
 
         }
         tableGame += '</tr>';
@@ -374,47 +362,52 @@ function paintCells() {
 
     for (item in filledCell) {
         var paintCell = document.getElementById(`cell_${filledCell[item]}`);
-        paintCell.removeAttribute('deadCell');
-        paintCell.setAttribute('class', 'availableCell');
+        paintCell.removeAttribute('celula-vazia');
+        paintCell.setAttribute('class', 'celula-livre');
     }
 
     for (var initial = 0; initial < firstIndex.length; initial++) {
         var paintIndex_cell = document.getElementById(`cell_${firstIndex[initial]}`);
 
-        paintIndex_cell.innerHTML = `<span class="numero">${initial + 1}</span>`;
+        paintIndex_cell.innerHTML = `<span class="numero-pergunta">${initial + 1}</span>`;
 
         if (initial == 2 || initial == 3) {
-            paintIndex_cell.innerHTML = `<span class="numeroPergunta">3_4</span>`;
+            paintIndex_cell.innerHTML = `<span class="numero-pergunta">3_4</span>`;
         }
     }
 }
 
-function verify() {
-    var answer = input_answer.value;
+function verificarResposta() {
+    const respostaUsuario = (input_resposta.value).toLowerCase();
+    
+    const janelaVerificaco = aside_verificacao.style
+    var saidaVerificao = ''
 
-    if (answer != '') {
-        // answer = answer.toLowerCase();
-        if (answer == special_words[cont_correctAnswer]) {
-            div_verifiedAnswer.classList.add('correctAnswer');
-            div_verifiedAnswer.innerHTML = 'Resposta Correta!';
-            cont_correctAnswer++;
-        } else {
-            div_verifiedAnswer.classList.add('wrongAnswer');
-            div_verifiedAnswer.innerHTML = 'Resposta Incorreta, tente novamente';
-        }
+    if (respostaUsuario == '') {
+        saidaVerificao = '<p>Escreva sua resposta no campo.</p>';
         
-        setTimeout(function () {
-            div_verifiedAnswer.style.display = 'block';
-        }, 500);
-
-        setTimeout(function () {
-            div_verifiedAnswer.style.display = 'none';
-        }, 3000);
-
-        input_answer.value = '';
-        gameSequence();
-
     } else {
-        alert('Por Favor, digite uma resposta na caixa de texto');
+        const respostaCorreta = respostaUsuario == special_words[cont_correctAnswer].toLowerCase()
+        if (respostaCorreta) {
+            aside_verificacao.setAttribute('class', 'janela resposta-correta');
+            saidaVerificao = '<h3>Resposta correta!</h3>';
+
+            cont_correctAnswer++;
+
+        } else {
+            aside_verificacao.setAttribute('class', 'janela resposta-incorreta');
+            saidaVerificao = '<h3>Resposta incorreta<h3>';
+        }
+
+        input_resposta.value = '';
+        gameSequence();
     }
+
+    span_saida_verificacao.innerHTML = saidaVerificao
+    janelaVerificaco.display = 'block';
+
+    setTimeout(function () {
+        janelaVerificaco.display = 'none';
+        aside_verificacao.setAttribute('class', 'janela')
+    }, 1500);
 }
