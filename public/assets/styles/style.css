@@ -9,14 +9,19 @@
 }
 
 :root {
+    --fonte: 'SpaceGrostesk-Regular';
+    --fonte-bold: 'SpaceGrotesk-Bold';
+
+    --bg-body: #dbf5fd;
+
     --borda-padrao: .2rem solid black;
 
-    --texto: 'SpaceGrostesk-Regular';
-    --texto-bold: 'SpaceGrotesk-Bold';
+    --bg-topo-janela: pink;
 
-    --cor: pink;
-    --cor-pergunta: #fc4242b0;
-    --cor-bg: #D7E6EB;
+    --bg-header: #ffe8ec;
+    --borda-header: #ce7685;
+
+    --cor-pergunta-celula: #ff4d4d;
 
     --bg-resposta-correta: lightgreen;
     --borda-resposta-correta: darkgreen;
@@ -25,55 +30,80 @@
     --borda-resposta-incorreta: darkred;
 }
 
-html {
-    font-size: 62.5%;
+@media (min-width: 0px) {   
+    html {
+        font-size: 43%;
+    }
+
+}
+
+@media (min-width: 375px) {
+    html {
+        font-size: 50%;
+    }   
+}
+
+@media (min-width: 446px) {
+    html {
+        font-size: 62.5%;
+    }   
+}
+
+@media (max-height: 700px) {
+    body {
+        padding: 2rem 0;
+    }
+}
+
+@media (min-height: 701px) {
+    body {
+        padding: 0;
+    }
+}
+
+h1, h2, h3, strong {
+    margin: 0;
+    font-family: var(--fonte-bold);
 }
 
 button {
-    font-family: var(--texto-bold);
-    border-style: solid;
-
+    font-family: var(--fonte-bold);
+    border: .2rem solid;
 }
 
 button:hover {
     cursor: pointer;
 }
 
-h1, h2, h3, strong {
-    margin-top: 0;
-    font-family: var(--texto-bold);
-}
-
-body {
-    margin: 0;
-    padding: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    font-family: var(--texto);
-    background-color: var(--cor-bg);
-}
 
 .flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
+    flex-flow: row wrap;
+    gap: 2rem;
 }
 
-header {
-    box-sizing: border-box;
+body {
+    margin: 0;
+
+    width: 100vw;
+    height: 100vh;
+    min-height: fit-content;
+
+    font-family: var(--fonte);
+    background-color: var(--bg-body);
+}
+
+.absolute {
     position: absolute;
 }
 
-header .conteudo-janela {
-    padding: 3rem 4rem;
-}
-
-header h1 {
-    margin: 0;
-
-    font-size: 4rem;
+#section_inicio {
+    position: relative;
+    width: 90rem; 
+    height: 50rem;
 }
 
 .janela {
@@ -84,7 +114,7 @@ header h1 {
     background-color: white;
 }
 
-.topo-janela>* {
+.topo-janela > * {
     margin: 0;
     padding: 0;
 }
@@ -103,27 +133,55 @@ header h1 {
     justify-content: space-between;
     align-items: center;
 
-    background-color: var(--cor);
+    background-color: var(--bg-topo-janela);
 }
 
 button.fechar-janela {
     width: 2rem;
     height: 2rem;
 
-    border: .2rem solid black;
     border-radius: 50%;
 
-    background-color: transparent;
+    font-size: 1.4rem;
 
-    vertical-align: middle;
+    background-color: transparent;
 }
 
 .conteudo-janela {
     padding: 2rem;
 }
 
-article.janela {
-    width: 60rem;
+header.janela {
+    top: 6%;
+    left: 5%;
+    
+    width: 35rem;
+
+    text-align: center;
+
+    background-color: var(--bg-header);
+    color: var(--borda-header);
+    border-color: var(--borda-header);
+}
+
+header .topo-janela {
+    justify-content: flex-end;
+    border-color: var(--borda-header);
+}
+
+header button.fechar-janela {
+    border-color: var(--borda-header);
+    color: var(--borda-header);
+}
+
+header .conteudo-janela {
+    padding: 2rem;
+}
+
+header h1 {
+    margin: 0;
+
+    font-size: 4rem;
 }
 
 article .conteudo-janela {
@@ -135,29 +193,26 @@ article .conteudo-janela {
 
 article p {
     font-size: 1.6rem;
-    text-indent: 2rem;
 }
 
-button.botao-acao {
-    border-radius: .8rem;
-    font-size: 2rem;
-    padding: .3rem .7rem;
+#article_instrucoes {
+    width: 95%;
+    max-width: 60rem;
+}
 
-    background-color: var(--cor);
+button.acao {
+    padding: .3rem .7rem;
+    border-radius: .8rem;
+
+    font-size: 2rem;
+    background-color: var(--bg-topo-janela);
 }
 
 /* Jogo */
-#main_game {
-    position: relative;
-
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-}
-
     /* Cruzadinha */
     table {
         font-size: 2.5rem;
+        text-transform: capitalize;
     }
 
     td {
@@ -169,22 +224,21 @@ button.botao-acao {
 
     .celula-livre {
         position: relative;
-        border: .1rem solid #131313;
+        outline: .1rem solid #131313;
     }
     
     .celula-livre .numero-pergunta {
-        position: absolute;
         top: 1%;
         left: 3%;
     
         font-size: 1.25rem;
-        color: var(--cor-pergunta);
+        color: var(--cor-pergunta-celula);
     }
 
 
-    /* Janela de respostas */
-    #div_questions {
-        max-width: 50rem;
+    /* Janela de perguntas */
+    #section_perguntas {
+        width: 40rem;
     }
 
     #p_texto_pergunta {
@@ -206,7 +260,7 @@ button.botao-acao {
 
     /* Janela verificação */
     #aside_verificacao {
-        position: absolute;
+        z-index: 1;
         right: 1%;
         bottom: 10%;
 
@@ -231,14 +285,13 @@ button.botao-acao {
             position: relative;
         }
 
-        #aside_verificacao h3, #aside_verificacao p {
-            margin: 0;
-        }
-
-        #aside_verificacao .conteudo-janela button.fechar-janela {
-            position: absolute;
+        #aside_verificacao button.fechar-janela {
             top: .5rem;
             right: .5rem;
+        }
+
+        #aside_verificacao h3, #aside_verificacao p {
+            margin: 0;
         }
 
 footer {

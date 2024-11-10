@@ -1,3 +1,161 @@
+// código original por Carlos Santana (RA 01201095)
+// adaptado por Mikki Aurora (RA 01242083
+
+function start() {
+    cont_correctAnswer = 0;
+
+    section_inicio.style.display = 'none';
+
+    main_game.style.display = 'flex';
+    section_perguntas.style.display = 'block'
+
+    renderGrid();
+    gameSequence();
+}
+
+function renderGrid() {
+    var tableGame = '<table id="gridGame" celulaspacing=0 celulapadding=0>';
+    
+    var widthTable = 11;
+    var heightTable = 18;
+    
+    const vazioCelula = '&nbsp;' // 'non-breaking space' 
+    var celula = 0;
+    for (var row = 1; row <= heightTable; row++) {
+
+        tableGame += `<tr id="row_${row}">`;
+
+        for (var column = 1; column <= widthTable; column++, celula++) {
+            tableGame += `<td class="celula-vazia" id="celula_${celula}">${vazioCelula}</td>`;
+
+        }
+        tableGame += '</tr>';
+
+    }
+    tableGame += '</table>';
+
+    document.querySelector('#div_canvasCruzada').innerHTML = tableGame;
+
+    pintarCelulas();
+}
+
+function pintarCelulas() {
+    
+    var celulaPreenchida = [
+        2,   3,  13,  14,  20,  23,  24,  25,  26,  27,  28,  29,
+       30,  31,  36,  38,  39,  40,  42,  47,  49,  53,  58,  60,
+       64,  69,  71,  72,  74,  75,  76,  80,  82,  84,  85,  86,
+       91,  93,  96,  97, 104, 107, 108, 115, 117, 118, 119, 126,
+      127, 128, 130, 137, 139, 141, 145, 148, 150, 152, 156, 159,
+      161, 163, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174,
+      178, 183, 185, 189, 193, 194
+    ];
+
+    for (item in celulaPreenchida) {
+        var paintcelula = document.getElementById(`celula_${celulaPreenchida[item]}`);
+        paintcelula.removeAttribute('class', 'celula-vazia');
+        paintcelula.setAttribute('class', 'celula-livre');
+    }
+
+
+
+    const celulaNumeroPergunta = [2, 84, 38, 38, 167, 145, 74, 20, 126, 193, 165, 117, 75, 71, 23, 3];
+    
+    for (
+        var posicao = 0; 
+        posicao < celulaNumeroPergunta.length; 
+        posicao++
+    ) {
+        var paintIndex_celula = document.getElementById(`celula_${celulaNumeroPergunta[posicao]}`);
+
+        paintIndex_celula.innerHTML = `<span class="numero-pergunta absolute">${posicao + 1}</span>`;
+
+        if (posicao == 2 || posicao == 3) {
+            paintIndex_celula.innerHTML = `<span class="numero-pergunta absolute">3/4</span>`;
+        }
+    }
+}
+
+function gameSequence() {
+    if (cont_correctAnswer != 16) {
+        p_texto_pergunta.innerHTML = `<b>${cont_correctAnswer + 1}.</b> ${questions_list[cont_correctAnswer]}`;
+    }
+
+    if (cont_correctAnswer != 0) {
+        word[cont_correctAnswer - 1].write();
+    }
+
+    if (cont_correctAnswer == 16) {
+        destroyGrid()
+    }
+}
+
+function verificarResposta() {
+    const respostaUsuario = (input_resposta.value).toLowerCase(); // normalização
+
+    const janelaVerificaco = aside_verificacao.style
+    var saidaVerificao = ''
+
+    if (respostaUsuario == '') {
+        saidaVerificao = '<p>Escreva sua resposta no campo.</p>';
+
+    } else {
+        const respostaCorreta = respostaUsuario == special_words[cont_correctAnswer].toLowerCase()
+        if (respostaCorreta) {
+            aside_verificacao.setAttribute('class', 'janela absolute resposta-correta');
+            saidaVerificao = '<h3>Resposta correta!</h3>';
+
+            cont_correctAnswer++;
+            gameSequence();
+
+        } else {
+            aside_verificacao.setAttribute('class', 'janela absolute resposta-incorreta');
+            saidaVerificao = '<h3>Resposta incorreta<h3>';
+        }
+
+        input_resposta.value = '';
+    }
+
+    span_saida_verificacao.innerHTML = saidaVerificao
+    janelaVerificaco.display = 'block';
+
+    setTimeout(function () {
+        janelaVerificaco.display = 'none';
+        aside_verificacao.setAttribute('class', 'janela absolute');
+    }, 1500);
+}
+
+function destroyGrid() {
+    pontuation();
+
+    section_perguntas.style.display = 'none';
+}
+
+function pontuation() {
+    article_gameover.style.display = 'block';
+
+    if (cont_correctAnswer != 0) {
+        p_pontuacao.style.display = 'block';
+
+        for (i = 0; i < cont_correctAnswer; i++) {
+                ol_pontuacao.innerHTML += `<li>${special_words[i]}`;
+        }
+    }
+}
+
+function recomecarJogo() {
+    ol_pontuacao.innerHTML = ''
+    p_pontuacao.style.display = 'none'
+
+    main_game.style.display = 'none';
+    article_gameover.style.display = 'none';
+
+    section_inicio.style.display = 'flex';
+}
+
+// variáveis globais
+var cont_correctAnswer = 0;
+
 var special_words = ['CPU', 'ULA', 'Registradores', 'RAM', 'ROM', 'EPROM', 'FLASH', 'Memória de Massa', 'DMA', 'CS', 'Adress Bus', 'Data Bus', 'I5', 'I7', 'Dual Core', 'Quad Core'];
 
 var questions_list = [
@@ -19,395 +177,265 @@ var questions_list = [
     'Segue o mesmo princípio de um dual-core, mas agora em teoria tem o dobro da capacidade de processamento'
 ];
 
-var filledCell = [2, 20, 38, 133, 134, 135, 59, 77, 95, 113, 131, 149,
-    167, 185, 203, 221, 239, 257, 275, 59, 60, 61, 272, 290, 308, 236,
-    254, 272, 290, 308, 116, 134, 152, 170, 188, 27, 45, 63, 81, 99, 117,
-    135, 153, 171, 189, 207, 225, 243, 261, 279, 297, 203, 204, 205, 312,
-    313, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 187, 20, 223,
-    241, 259, 277, 295, 313, 117, 118, 113, 114, 37, 38, 39, 40, 41, 42,
-    43, 44, 45, 3, 21, 39, 57, 75, 93, 111, 129, 147];
-
-var firstIndex = [2, 133, 59, 59, 272, 236, 116, 27, 203, 312, 270, 187, 117, 113, 37, 3];
-
-const word = {
-
-    word1: {
+const word = [
+    {
         letter: special_words[0].split(''),
-        position: [2, 20, 38],
+        position: [2, 13, 24],
         write: function () {
 
-            for (i in word.word1.letter) {
-                var findCell = document.querySelector(`#cell_${word.word1.position[i]}`);
+            for (i in word[0].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[0].position[i]}`);
 
-                findCell.innerHTML = word.word1.letter[i];
-                console.log(word.word1.letter[i]);
+                if (i == 0) {
+                    celulaEncontrada.innerHTML += word[0].letter[i];
+                } else {
+                    celulaEncontrada.innerHTML = word[0].letter[i];
+                }
             }
-
-            cell_2.innerHTML = '<span class="numero-pergunta">1</span>C';
         }
     },
-    word2: {
+
+    {
         letter: special_words[1].split(''),
-        position: [133, 134, 135],
+        position: [84, 85, 86],
         write: function () {
-            for (i in word.word2.letter) {
-                var findCell = document.querySelector(`#cell_${word.word2.position[i]}`);
-
-                findCell.innerHTML = word.word2.letter[i];
-                console.log(word.word2.letter[i]);
+            for (i in word[1].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[1].position[i]}`);
+                if (i == 0) {
+                    celulaEncontrada.innerHTML += word[1].letter[i];
+                } else {
+                    celulaEncontrada.innerHTML = word[1].letter[i];
+                }
             }
-            cell_133.innerHTML = '<span class="numero-pergunta">2</span>U';
-
         }
     },
-    word3: {
+
+    {
         letter: special_words[2].split(''),
-        position: [59, 77, 95, 113, 131, 149, 167, 185, 203, 221, 239, 257, 275],
+        position: [38, 49, 60, 71, 82, 93, 104, 115, 126, 137, 148, 159, 170],
         write: function () {
-            for (i in word.word3.letter) {
-                var findCell = document.querySelector(`#cell_${word.word3.position[i]}`);
+            for (i in word[2].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[2].position[i]}`);
 
-                findCell.innerHTML = word.word3.letter[i];
-                console.log(word.word3.letter[i]);
+                if (i == 0 || i == 3 || i == 8) {
+                    celulaEncontrada.innerHTML += word[2].letter[i];
+                } else {
+                    celulaEncontrada.innerHTML = word[2].letter[i];
+                }
             }
-            cell_59.innerHTML = '<span class="numero-pergunta">3_4</span>R';
-            cell_113.innerHTML = '<span class="numero-pergunta">14</span>i';
         }
     },
-    word4: {
+    
+    {
         letter: special_words[3].split(''),
-        position: [59, 60, 61],
+        position: [38, 39, 40],
         write: function () {
-            for (i in word.word4.letter) {
-                var findCell = document.querySelector(`#cell_${word.word4.position[i]}`);
+            for (i in word[3].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[3].position[i]}`);
 
-                findCell.innerHTML = word.word4.letter[i];
-                console.log(word.word4.letter[i]);
+                if (i > 0) {
+                    celulaEncontrada.innerHTML = word[3].letter[i];
+                }
             }
-            cell_59.innerHTML = '<span class="numero-pergunta">3_4</span>R';
         }
     },
-    word5: {
+    
+    {
         letter: special_words[4].split(''),
-        position: [272, 290, 308],
+        position: [167, 178, 189],
         write: function () {
-            for (i in word.word5.letter) {
-                var findCell = document.querySelector(`#cell_${word.word5.position[i]}`);
+            for (i in word[4].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[4].position[i]}`);
 
-                findCell.innerHTML = word.word5.letter[i];
-                console.log(word.word5.letter[i]);
+                if (i == 0) {
+                    celulaEncontrada.innerHTML += word[4].letter[i];
+                } else {
+                    celulaEncontrada.innerHTML = word[4].letter[i];
+                }
             }
-            cell_272.innerHTML = '<span class="numero-pergunta">5</span>R';
         }
     },
-    word6: {
+    
+    {
         letter: special_words[5].split(''),
-        position: [236, 254, 272, 290, 308],
+        position: [145, 156, 167, 178, 189],
         write: function () {
-            for (i in word.word6.letter) {
-                var findCell = document.querySelector(`#cell_${word.word6.position[i]}`);
+            for (i in word[5].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[5].position[i]}`);
 
-                findCell.innerHTML = word.word6.letter[i];
-                console.log(word.word6.letter[i]);
+                if (i == 0) {
+                    celulaEncontrada.innerHTML += word[5].letter[i];
+                } else if (i == 2) {
+                } else {
+                    celulaEncontrada.innerHTML = word[5].letter[i];
+                }
             }
-            cell_236.innerHTML = '<span class="numero-pergunta">6</span>E';
         }
     },
-    word7: {
+    
+    {
         letter: special_words[6].split(''),
-        position: [116, 134, 152, 170, 188],
+        position: [74, 85, 96, 107, 118],
         write: function () {
-            for (i in word.word7.letter) {
-                var findCell = document.querySelector(`#cell_${word.word7.position[i]}`);
+            for (i in word[6].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[6].position[i]}`);
 
-                findCell.innerHTML = word.word7.letter[i];
-                console.log(word.word7.letter[i]);
+                if (i == 0) {
+                    celulaEncontrada.innerHTML += word[6].letter[i];
+                } else {
+                    celulaEncontrada.innerHTML = word[6].letter[i];
+                }
             }
-            cell_116.innerHTML = '<span class="numero-pergunta">7</span>F';
         }
     },
-    word8: {
+    
+    {
         letter: special_words[7].split(''),
-        position: [27, 45, 63, 81, 99, 117, 135, 153, 171, 189, 207, 225, 243, 261, 279, 297],
+        position: [20, 31, 42, 53, 64, 75, 86, 97, 108, 119, 130, 141, 152, 163, 174, 185],
         write: function () {
-            for (i in word.word8.letter) {
-                var findCell = document.querySelector(`#cell_${word.word8.position[i]}`);
+            for (i in word[7].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[7].position[i]}`);
 
-                findCell.innerHTML = word.word8.letter[i];
-                console.log(word.word8.letter[i]);
+                if (i == 0 || i == 5 || i == 8) {
+                    celulaEncontrada.innerHTML += word[7].letter[i];
+                } else {
+                    celulaEncontrada.innerHTML = word[7].letter[i];
+                }
             }
-            cell_27.innerHTML = '<span class="numero-pergunta">8</span>M';
-            cell_117.innerHTML = '<span class="numero-pergunta">13</span>i';
-            cell_153.innerHTML = '-';
-            cell_207.innerHTML = '-';
 
+            celula_97.innerHTML = '-'
+            celula_130.innerHTML = '-'
         }
     },
-    word9: {
+    
+    {
         letter: special_words[8].split(''),
-        position: [203, 204, 205, 312, 313],
+        position: [126, 127, 128],
         write: function () {
-            for (i in word.word9.letter) {
-                var findCell = document.querySelector(`#cell_${word.word9.position[i]}`);
+            for (i in word[8].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[8].position[i]}`);
 
-                findCell.innerHTML = word.word9.letter[i];
-                console.log(word.word9.letter[i]);
+                if (i > 0) {
+                    celulaEncontrada.innerHTML = word[8].letter[i];
+                }
             }
-            cell_203.innerHTML = '<span class="numero-pergunta">9</span>D';
         }
     },
-    word10: {
+    
+    {
         letter: special_words[9].split(''),
-        position: [312, 313],
+        position: [193, 194],
         write: function () {
-            for (i in word.word10.letter) {
-                var findCell = document.querySelector(`#cell_${word.word10.position[i]}`);
+            for (i in word[9].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[9].position[i]}`);
 
-                findCell.innerHTML = word.word10.letter[i];
-                console.log(word.word10.letter[i]);
+                if (i == 0) {
+                    celulaEncontrada.innerHTML += word[9].letter[i];
+                } else {
+                    celulaEncontrada.innerHTML = word[9].letter[i];
+                }
             }
-            cell_312.innerHTML = '<span class="numero-pergunta">10</span>C';
         }
     },
-    word11: {
+    
+    {
         letter: special_words[10].split(''),
-        position: [270, 271, 272, 273, 274, 275, 276, 277, 278, 279],
+        position: [165, 166, 167, 168, 169, 170, 171, 172, 173, 174],
         write: function () {
-            for (i in word.word11.letter) {
-                var findCell = document.querySelector(`#cell_${word.word11.position[i]}`);
+            for (i in word[10].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[10].position[i]}`);
 
-                findCell.innerHTML = word.word11.letter[i];
-                console.log(word.word11.letter[i]);
+                if (i == 0) {
+                    celulaEncontrada.innerHTML += word[10].letter[i];
+                } else if (i == 2) {
+                } else {
+                    celulaEncontrada.innerHTML = word[10].letter[i];
+                }
             }
-            cell_270.innerHTML = '<span class="numero-pergunta">11</span>A';
-            cell_276.innerHTML = '-';
+
+            celula_171.innerHTML = '-'
         }
     },
-    word12: {
+    
+    {
         letter: special_words[11].split(''),
-        position: [187, 205, 223, 241, 259, 277, 295, 313, 117, 118],
+        position: [117, 128, 139, 150, 161, 172, 183, 194],
         write: function () {
-            for (i in word.word12.letter) {
-                var findCell = document.querySelector(`#cell_${word.word12.position[i]}`);
+            for (i in word[11].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[11].position[i]}`);
 
-                findCell.innerHTML = word.word12.letter[i];
-                console.log(word.word12.letter[i]);
+                if (i == 0) {
+                    celulaEncontrada.innerHTML += word[11].letter[i];
+                } else {
+                    celulaEncontrada.innerHTML = word[11].letter[i];
+                }
             }
-            cell_187.innerHTML = '<span class="numero-pergunta">12</span>D';
-            cell_259.innerHTML = '-';
+
+            celula_161.innerHTML = '-'
         }
     },
-    word13: {
+    
+    {
         letter: special_words[12].split(''),
-        position: [117, 118],
+        position: [75, 76],
         write: function () {
-            for (i in word.word13.letter) {
-                var findCell = document.querySelector(`#cell_${word.word13.position[i]}`);
+            for (i in word[12].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[12].position[i]}`);
 
-                findCell.innerHTML = word.word13.letter[i];
-                console.log(word.word13.letter[i]);
-            }
-            cell_117.innerHTML = '<span class="numero-pergunta">13</span>I';
+                if (i > 0) {
+                    celulaEncontrada.innerHTML = word[12].letter[i];
+                }
+            }    
         }
     },
-    word14: {
+    
+    {
         letter: special_words[13].split(''),
-        position: [113, 114],
+        position: [71, 72],
         write: function () {
-            for (i in word.word14.letter) {
-                var findCell = document.querySelector(`#cell_${word.word14.position[i]}`);
+            for (i in word[13].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[13].position[i]}`);
 
-                findCell.innerHTML = word.word14.letter[i];
-                console.log(word.word14.letter[i]);
-            }
-            cell_113.innerHTML = '<span class="numero-pergunta">14</span>I';
+                if (i > 0) {
+                    celulaEncontrada.innerHTML = word[13].letter[i];
+                }
+            }    
         }
     },
-    word15: {
+    
+    {
         letter: special_words[14].split(''),
-        position: [37, 38, 39, 40, 41, 42, 43, 44, 45],
+        position: [23, 24, 25, 26, 27, 28, 29, 30, 31],
         write: function () {
-            for (i in word.word15.letter) {
-                var findCell = document.querySelector(`#cell_${word.word15.position[i]}`);
+            for (i in word[14].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[14].position[i]}`);
 
-                findCell.innerHTML = word.word15.letter[i];
-                console.log(word.word15.letter[i]);
+                if (i == 0) {
+                    celulaEncontrada.innerHTML += word[14].letter[i];
+                } else {
+                    celulaEncontrada.innerHTML = word[14].letter[i];
+                }
             }
-            cell_37.innerHTML = '<span class="numero-pergunta">15</span>D';
-            cell_41.innerHTML = '-';
+
+            celula_27.innerHTML = '-'
         }
     },
-    word16: {
+    
+    {
         letter: special_words[15].split(''),
-        position: [3, 21, 39, 57, 75, 93, 111, 129, 147],
+        position: [3, 14, 25, 36, 47, 58, 69, 80, 91],
         write: function () {
-            for (i in word.word16.letter) {
-                var findCell = document.querySelector(`#cell_${word.word16.position[i]}`);
+            for (i in word[15].letter) {
+                var celulaEncontrada = document.querySelector(`#celula_${word[15].position[i]}`);
 
-                findCell.innerHTML = word.word16.letter[i];
-                console.log(word.word16.letter[i]);
+                if (i == 0) {
+                    celulaEncontrada.innerHTML += word[15].letter[i];
+                } else {
+                    celulaEncontrada.innerHTML = word[15].letter[i];
+                }
             }
-            cell_3.innerHTML = '<span class="numero-pergunta">16</span>Q';
-            cell_75.innerHTML = '-';
+
+            celula_47.innerHTML = '-'
         }
     }
-};
-
-var widthTable = 18;
-var heightTable = 18;
-
-
-var cont_correctAnswer = 0;
-
-function start() {
-    cont_correctAnswer = 0;
-
-    div_information.style.display = 'none';
-    
-    bt_destroyGame.style.display = 'block';
-    div_questions.style.display = 'block';
-
-    main_game.style.display = 'flex'
-
-    renderGrid();
-    gameSequence();
-
-}
-
-function destroyGrid() {
-    main_game.style.display = 'none'
-
-    document.querySelector('#div_canvasCruzada').innerHTML = '';
-
-    pontuation();
-}
-
-function gameSequence() {
-    if (cont_correctAnswer != 16) {
-        p_texto_pergunta.innerHTML = `<b>${cont_correctAnswer + 1}.</b> ${questions_list[cont_correctAnswer]}`;
-    } 
-
-    if (cont_correctAnswer == 1) {
-        word.word1.write();
-    } else if (cont_correctAnswer == 2) {
-        word.word2.write();
-    } else if (cont_correctAnswer == 3) {
-        word.word3.write();
-    } else if (cont_correctAnswer == 4) {
-        word.word4.write();
-    } else if (cont_correctAnswer == 5) {
-        word.word5.write();
-    } else if (cont_correctAnswer == 6) {
-        word.word6.write();
-    } else if (cont_correctAnswer == 7) {
-        word.word7.write();
-    } else if (cont_correctAnswer == 8) {
-        word.word8.write();
-    } else if (cont_correctAnswer == 9) {
-        word.word9.write();
-    } else if (cont_correctAnswer == 10) {
-        word.word10.write();
-    } else if (cont_correctAnswer == 11) {
-        word.word11.write();
-    } else if (cont_correctAnswer == 12) {
-        word.word12.write();
-    } else if (cont_correctAnswer == 13) {
-        word.word13.write();
-    } else if (cont_correctAnswer == 14) {
-        word.word14.write();
-    } else if (cont_correctAnswer == 15) {
-        word.word15.write();
-    } else if (cont_correctAnswer == 16) {
-        word.word16.write();
-
-        setTimeout(function () {
-            destroyGrid();
-        }, 3000);
-    }
-}
-
-function pontuation() {
-    div_information.style.display = 'block';
-
-    div_information.innerHTML = '<h1 style="text-align: center;">Parabéns!!</h1> <p style="text-align: center;">Você finalizou o jogo</p>';
-}
-
-function renderGrid() {
-    var tableGame = '<table id="gridGame" cellspacing=0 cellpadding=0>';
-
-    // &nbsp its used to set null value to a cell
-    var cellContent_tableGame = '&nbsp';
-    var cell = 0;
-    for (var row = 1; row <= heightTable; row++) {
-
-        tableGame += `<tr id="row_${row}">`;
-
-        for (var column = 1; column <= widthTable; column++, cell++) {
-            tableGame += `<td class="celula-vazia" id="cell_${cell}">` + cellContent_tableGame + '</td>';
-
-        }
-        tableGame += '</tr>';
-
-    }
-    tableGame += '</table>';
-
-    document.querySelector('#div_canvasCruzada').innerHTML = tableGame;
-
-    paintCells();
-}
-
-
-
-function paintCells() {
-
-    for (item in filledCell) {
-        var paintCell = document.getElementById(`cell_${filledCell[item]}`);
-        paintCell.removeAttribute('celula-vazia');
-        paintCell.setAttribute('class', 'celula-livre');
-    }
-
-    for (var initial = 0; initial < firstIndex.length; initial++) {
-        var paintIndex_cell = document.getElementById(`cell_${firstIndex[initial]}`);
-
-        paintIndex_cell.innerHTML = `<span class="numero-pergunta">${initial + 1}</span>`;
-
-        if (initial == 2 || initial == 3) {
-            paintIndex_cell.innerHTML = `<span class="numero-pergunta">3_4</span>`;
-        }
-    }
-}
-
-function verificarResposta() {
-    const respostaUsuario = (input_resposta.value).toLowerCase();
-    
-    const janelaVerificaco = aside_verificacao.style
-    var saidaVerificao = ''
-
-    if (respostaUsuario == '') {
-        saidaVerificao = '<p>Escreva sua resposta no campo.</p>';
-        
-    } else {
-        const respostaCorreta = respostaUsuario == special_words[cont_correctAnswer].toLowerCase()
-        if (respostaCorreta) {
-            aside_verificacao.setAttribute('class', 'janela resposta-correta');
-            saidaVerificao = '<h3>Resposta correta!</h3>';
-
-            cont_correctAnswer++;
-
-        } else {
-            aside_verificacao.setAttribute('class', 'janela resposta-incorreta');
-            saidaVerificao = '<h3>Resposta incorreta<h3>';
-        }
-
-        input_resposta.value = '';
-        gameSequence();
-    }
-
-    span_saida_verificacao.innerHTML = saidaVerificao
-    janelaVerificaco.display = 'block';
-
-    setTimeout(function () {
-        janelaVerificaco.display = 'none';
-        aside_verificacao.setAttribute('class', 'janela')
-    }, 1500);
-}
+];

@@ -4,79 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/styles/style.css">
     <title>Cruzadinha!</title>
     <script src="assets/js/index.js"></script>
 </head>
 
 <body class="flex-center">
-    <header class="janela" style="display: none;">
-        <div class="topo-janela">
-            <h2>Jogo de Cruzadinha</h2>
-
-            <button class="fechar-janela">
-                X
-            </button>
-        </div>
-
-        <div class="conteudo-janela flex-center">
-            <h1>Cruzadinha!</h1>
-        </div>
-    </header>
-
-    <article id="div_information" class="janela">
-        <div class="topo-janela">
-            <h2>Instruções do jogo</h2>
-
-            <button class="fechar-janela">
-                X
-            </button>
-        </div>
-
-        <div class="conteudo-janela">
-            <div>
-                <h2>Instruções do jogo</h2>
-
-                <p>
-                    Clique no botão abaixo para iniciar uma partida. <strong>Perguntas serão exibidas na janela abaixo
-                        do jogo.</strong>
-                </p>
-
-                <p>
-                    <strong>Insira a sua resposta na caixa de texto</strong> e clique em <strong>"Verificar"</strong>
-                    para conferir a sua
-                    resposta.
-                </p>
-
-                <p>
-                    <strong>A partida acaba</strong> quando as <strong>16 questões forem respondidas
-                        corretamente,</strong> ou quando você
-                    decidir encerrar a partida.
-                </p>
-            </div>
-
-            <button class="botao-acao" id="bt_start" onclick="start()">
-                Começar o Jogo
-            </button>
-        </div>
-    </article>
-
-
-    <main id="main_game" style="display: none;">
-        <aside id="aside_verificacao" class="janela" style="display: none">
-            
-            <div class="conteudo-janela">
+    <section id="section_inicio" class="flex-center">
+        <header class="janela absolute">
+            <div class="topo-janela">
                 <button class="fechar-janela">
                     X
                 </button>
-
-                <span id="span_saida_verificacao">
-                    ?
-                </span>
             </div>
-        </aside>
 
+            <div class="conteudo-janela flex-center">
+                <h1>Cruzadinha de Arq. Comp!</h1>
+            </div>
+        </header>
+        <article id="article_instrucoes" class="janela">
+            <div class="topo-janela">
+                <h2>Instruções do jogo</h2>
+                <button class="fechar-janela ab">
+                    X
+                </button>
+            </div>
+            <div class="conteudo-janela">
+                <div>
+                    <h2>Instruções do jogo</h2>
+                    <p>
+                        Clique no botão abaixo para iniciar uma partida. <strong>Perguntas serão exibidas na janela abaixo do jogo.</strong>
+                    </p>
+                    <p>
+                        <strong>Insira a sua resposta na caixa de texto</strong> e clique em <strong>"Verificar"</strong> para conferir a sua resposta.
+                    </p>
+                    <p>
+                        <strong>A partida acaba</strong> quando as <strong>16 questões forem respondidas corretamente,</strong> ou quando você decidir encerrar a partida.
+                    </p>
+                </div>
+                <button class="acao" id="bt_start" onclick="start()">
+                    Começar o Jogo
+                </button>
+            </div>
+        </article>
+    </section>
+
+    <main id="main_game" class="flex-center" style="display: none;">
         <section class="janela">
             <div class="topo-janela">
                 <h3>Partida de Cruzadinha</h3>
@@ -88,7 +61,7 @@
             <div id="div_canvasCruzada" class="conteudo-janela flex-center"></div>
         </section>
 
-        <section id="div_questions" class="janela">
+        <section id="section_perguntas" class="janela" style="display: none">
             <span class="topo-janela">
                 <strong>Responda aqui</strong>
             </span>
@@ -98,14 +71,50 @@
 
                 <div id="campo-resposta">
                     <input type="text" id="input_resposta" placeholder="Sua reposta">
-                    <button onclick="verificarResposta()" class="botao-acao">
+                    <button onclick="verificarResposta()" class="acao">
                         Verificar
                     </button>
                 </div>
             </div>
         </section>
-    </main>
 
+        <aside id="aside_verificacao" class="janela absolute" style="display: none">
+            <div class="conteudo-janela">
+                <button class="fechar-janela absolute">
+                    X
+                </button>
+
+                <span id="span_saida_verificacao">
+                    ?
+                </span>
+            </div>
+        </aside>
+
+    </main>
+    
+    <article id="article_gameover" class="janela" style="display: none;">
+        <div class="topo-janela">
+            <h2>Fim de jogo</h2>
+
+            <button class="fechar-janela">
+                X
+            </button>
+        </div>
+
+        <div class="conteudo-janela">
+            <div>
+                <h2>Você terminou o jogo!</h2>
+                <p id="p_pontuacao" style="display: none;">
+                    Essas foram as palavras que acertou:
+                    <ol id="ol_pontuacao"></ul>
+                </p>
+            </div>
+
+            <button class="acao" onclick="recomecarJogo()">
+                Recomeçar o jogo
+            </button>
+        </div>
+    </article>
     <!-- 
         <footer>
             <p>Developed by Carlos Santana</p>
