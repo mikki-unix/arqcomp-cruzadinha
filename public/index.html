@@ -11,9 +11,9 @@
 
 <body class="flex-center">
     <section id="section_inicio" class="flex-center">
-        <header class="janela absolute">
+        <header id="header_inicio" class="janela absolute">
             <div class="topo-janela">
-                <button class="fechar-janela">
+                <button class="fechar-janela" onclick="fecharJanela(header_inicio)">
                     X
                 </button>
             </div>
@@ -25,7 +25,7 @@
         <article id="article_instrucoes" class="janela">
             <div class="topo-janela">
                 <h2>Instruções do jogo</h2>
-                <button class="fechar-janela ab">
+                <button class="fechar-janela" onclick="comecarJogo()">
                     X
                 </button>
             </div>
@@ -42,7 +42,7 @@
                         <strong>A partida acaba</strong> quando as <strong>16 questões forem respondidas corretamente,</strong> ou quando você decidir encerrar a partida.
                     </p>
                 </div>
-                <button class="acao" id="bt_start" onclick="start()">
+                <button class="acao" id="bt_start" onclick="comecarJogo()">
                     Começar o Jogo
                 </button>
             </div>
@@ -53,7 +53,7 @@
         <section class="janela">
             <div class="topo-janela">
                 <h3>Partida de Cruzadinha</h3>
-                <button class="fechar-janela" id="bt_destroyGame" onclick="destroyGrid()">
+                <button class="fechar-janela" onclick="terminarJogo()">
                     X
                 </button>
             </div>
@@ -62,9 +62,13 @@
         </section>
 
         <section id="section_perguntas" class="janela" style="display: none">
-            <span class="topo-janela">
-                <strong>Responda aqui</strong>
-            </span>
+            <div class="topo-janela">
+                <strong>Use a dica para encontrar a palavra</strong>
+
+                <button class="fechar-janela" onclick="terminarJogo()">
+                    X
+                </button>
+            </div>
 
             <div class="conteudo-janela">
                 <p id="p_texto_pergunta">Vamos encontrar as esferas do dragão</p>
@@ -80,7 +84,7 @@
 
         <aside id="aside_verificacao" class="janela absolute" style="display: none">
             <div class="conteudo-janela">
-                <button class="fechar-janela absolute">
+                <button class="fechar-janela absolute" onclick="fecharJanela(aside_verificacao)">
                     X
                 </button>
 
@@ -96,7 +100,7 @@
         <div class="topo-janela">
             <h2>Fim de jogo</h2>
 
-            <button class="fechar-janela">
+            <button class="fechar-janela" onclick="recomecarJogo()">
                 X
             </button>
         </div>

@@ -209,6 +209,10 @@ button.acao {
 }
 
 /* Jogo */
+#main_game {
+    position: relative;
+}
+
     /* Cruzadinha */
     table {
         font-size: 2.5rem;
@@ -260,12 +264,22 @@ button.acao {
 
     /* Janela verificação */
     #aside_verificacao {
-        z-index: 1;
-        right: 1%;
-        bottom: 10%;
-
         max-width: 25rem;
         font-size: 2rem;
+    }
+
+    @media (max-width: 843px) {
+        aside#aside_verificacao {
+            bottom: 8rem;
+            right: 12rem;
+        }
+    }
+
+    @media (min-width: 844px) {
+        aside#aside_verificacao {
+            top: 25rem;
+            right: -1rem;
+        }
     }
 
     .janela.resposta-correta, .janela.resposta-correta button.fechar-janela {
